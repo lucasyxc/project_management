@@ -10,7 +10,7 @@ python-decouple==3.8
 
 # 数据库
 # psycopg2-binary==2.9.10  # PostgreSQL (生产环境使用)
-# mysqlclient==2.2.6       # MySQL (可选)
+mysqlclient==2.2.6         # MySQL (生产环境使用)
 
 # 认证和权限
 djangorestframework-simplejwt==5.4.0
