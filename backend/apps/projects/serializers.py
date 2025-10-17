@@ -1,17 +1,39 @@
 from rest_framework import serializers
-from .models import Project, ProjectFile
+from .models import Project, ProjectFile, ProjectStage
 from apps.users.serializers import UserSerializer
+
+
+class ProjectStageSimpleSerializer(serializers.ModelSerializer):
+    """项目阶段简单序列化器（用于项目详情）"""
+    owner_name = serializers.CharField(source='owner.username', read_only=True)
+    
+    class Meta:
+        model = ProjectStage
+        fields = ['id', 'name', 'description', 'order', 'deadline', 
+                  'owner', 'owner_name', 'status', 'created_at']
+    
+    def to_representation(self, instance):
+        """序列化时自动更新超期状态"""
+        instance.update_status()
+        return super().to_representation(instance)
 
 
 class ProjectSerializer(serializers.ModelSerializer):
     """项目序列化器"""
     owner_detail = UserSerializer(source='owner', read_only=True)
     members_detail = UserSerializer(source='members', many=True, read_only=True)
+    stages = ProjectStageSimpleSerializer(many=True, read_only=True)
     
     class Meta:
         model = Project
-        fields = '__all__'
-        read_only_fields = ['created_at', 'updated_at']
+        fields = ['id', 'name', 'description', 'status', 'priority', 'owner', 'owner_detail',
+                  'members', 'members_detail', 'start_date', 'end_date', 'progress', 'budget',
+                  'stages', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at', 'start_date', 'end_date', 'status', 'progress']
+        extra_kwargs = {
+            'owner': {'allow_null': True, 'required': False},
+            'members': {'required': False},
+        }
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
@@ -22,7 +44,7 @@ class ProjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['id', 'name', 'description', 'status', 'priority', 
-                  'owner', 'owner_name', 'member_count', 'progress',
+                  'owner', 'owner_name', 'members', 'member_count', 'progress',
                   'start_date', 'end_date', 'created_at', 'updated_at']
     
     def get_member_count(self, obj):

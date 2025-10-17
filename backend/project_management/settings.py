@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # 本地应用
     'apps.api',
     'apps.projects',
-    'apps.tasks',
     'apps.users',
 ]
 

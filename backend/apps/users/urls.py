@@ -5,8 +5,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from .views import UserViewSet
+from .views_group import UserGroupViewSet
 
 router = DefaultRouter()
+router.register(r'groups', UserGroupViewSet, basename='user-group')
 router.register(r'', UserViewSet)
 
 urlpatterns = [

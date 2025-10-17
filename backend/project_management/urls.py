@@ -43,7 +43,6 @@ urlpatterns = [
     path('api/', include('apps.api.urls')),
     path('api/users/', include('apps.users.urls')),
     path('api/projects/', include('apps.projects.urls')),
-    path('api/tasks/', include('apps.tasks.urls')),
     
     # Swagger文档
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
