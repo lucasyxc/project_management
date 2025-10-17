@@ -1,0 +1,42 @@
+# 设置默认行为，如果Git未设置core.autocrlf
+* text=auto
+
+# Python文件
+*.py text eol=lf
+*.pyw text eol=lf
+
+# JavaScript/Vue文件
+*.js text eol=lf
+*.vue text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+
+# 配置文件
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+
+# Shell脚本
+*.sh text eol=lf
+*.bash text eol=lf
+
+# 批处理文件
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+

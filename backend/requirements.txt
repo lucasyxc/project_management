@@ -1,0 +1,33 @@
+# Django核心 (Python 3.13兼容)
+Django==5.0.9
+djangorestframework==3.15.2
+
+# CORS支持
+django-cors-headers==4.5.0
+
+# 环境变量管理
+python-decouple==3.8
+
+# 数据库
+# psycopg2-binary==2.9.10  # PostgreSQL (生产环境使用)
+# mysqlclient==2.2.6       # MySQL (可选)
+
+# 认证和权限
+djangorestframework-simplejwt==5.4.0
+
+# 过滤和搜索
+django-filter==24.3
+
+# API文档
+drf-yasg==1.21.8
+
+# 生产环境服务器
+gunicorn==23.0.0
+
+# 时区支持
+pytz==2024.2
+
+# 其他工具
+Pillow==11.0.0          # 图片处理 (Python 3.13兼容)
+python-dotenv==1.0.1    # 环境变量
+
