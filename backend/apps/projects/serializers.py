@@ -40,15 +40,28 @@ class ProjectListSerializer(serializers.ModelSerializer):
     """项目列表序列化器（简化版）"""
     owner_name = serializers.CharField(source='owner.username', read_only=True)
     member_count = serializers.SerializerMethodField()
+    current_stage = serializers.SerializerMethodField()
     
     class Meta:
         model = Project
         fields = ['id', 'name', 'description', 'status', 'priority', 
                   'owner', 'owner_name', 'members', 'member_count', 'progress',
-                  'start_date', 'end_date', 'created_at', 'updated_at']
+                  'start_date', 'end_date', 'current_stage', 'created_at', 'updated_at']
     
     def get_member_count(self, obj):
         return obj.members.count()
+    
+    def get_current_stage(self, obj):
+        """获取当前进行中的步骤信息"""
+        current_stage = obj.stages.filter(status='in_progress').order_by('order').first()
+        if current_stage:
+            return {
+                'id': current_stage.id,
+                'name': current_stage.name,
+                'deadline': current_stage.deadline,
+                'owner_name': current_stage.owner.username if current_stage.owner else None
+            }
+        return None
 
 
 class ProjectFileSerializer(serializers.ModelSerializer):
